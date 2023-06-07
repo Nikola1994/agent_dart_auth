@@ -13,22 +13,22 @@ class WebAuthProvider extends AuthClient {
 
   WebAuthProvider(
       {required String scheme,
-      Identity? identity,
-      String path = "",
-      SignIdentity? key,
-      DelegationChain? chain,
-      Uri? authUri,
-      AuthFunction authFunction = webAuth,
-      this.useLocalPage = true,
-      this.port = 32768})
+        Identity? identity,
+        String path = "",
+        SignIdentity? key,
+        DelegationChain? chain,
+        Uri? authUri,
+        AuthFunction authFunction = webAuth,
+        this.useLocalPage = true,
+        this.port = 32768})
       : super(
-            scheme: scheme,
-            authFunction: authFunction,
-            identity: identity,
-            path: path,
-            key: key,
-            chain: chain,
-            authUri: authUri);
+      scheme: scheme,
+      authFunction: authFunction,
+      identity: identity,
+      path: path,
+      key: key,
+      chain: chain,
+      authUri: authUri);
 
   Future<void> start([AuthClientLoginOptions? options]) async {
     if (useLocalPage) {
@@ -40,7 +40,6 @@ class WebAuthProvider extends AuthClient {
           callbackScheme: scheme,
           authUri: originUrl);
       server = await startServer(page, port);
-      authUri = Uri.parse('http://localtest.me:32768');
       try {
         await login(options);
       } catch (e) {
@@ -63,12 +62,11 @@ class WebAuthProvider extends AuthClient {
 
 String generateHtml(
     {required String sessionPublicKey,
-    required String callbackScheme,
-    required String callbackPath,
-    Uri? authUri}) {
+      required String callbackScheme,
+      required String callbackPath,
+      Uri? authUri}) {
   final withHash = authUri != null
-      ? authUri.toString()
-      : Uri.parse(IDENTITY_PROVIDER_DEFAULT + '/' + IDENTITY_PROVIDER_ENDPOINT).toString();
+      ? authUri.toString() : "";
 
   return """
 <!DOCTYPE html>
@@ -128,7 +126,7 @@ String generateHtml(
   <script>
     var idpWindow;
 
-    const toHex = arr => Array.from(arr, i => i.toString(16).padStart(2, "0")).join("");
+Hex = arr => Array.from(arr, i => i.toString(16).padStart(2, "0")).join("");
     const fromHexString = hexString => new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
     
     function getValue() {

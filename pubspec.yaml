@@ -12,7 +12,7 @@ dependencies:
   agent_dart:
     git:
       url: https://github.com/Nikola1994/agent_dart.git
-      ref: ffi-async
+      ref: ffi-async-merge
 
   flutter:
     sdk: flutter
