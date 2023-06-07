@@ -33,7 +33,7 @@ class WebAuthProvider extends AuthClient {
   Future<void> start([AuthClientLoginOptions? options]) async {
     if (useLocalPage) {
       var originUrl = authUri;
-      key ??= Ed25519KeyIdentity.generate(null) as SignIdentity?;
+      key ??= Ed25519KeyIdentity.generate(null);
       var page = generateHtml(
           sessionPublicKey: key!.getPublicKey().toDer().toHex(),
           callbackPath: path,
